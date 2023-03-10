@@ -1,16 +1,23 @@
-import { useState, useRef } from "react";
+// Hooks
+import { useState, useRef, useCallback} from "react";
 
+// Toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Bootstrap and CSS
 import { Card, CardBody, Container, Button, Col, Row } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 
+// Unique Keys
 import {v4 as getKey} from 'uuid';
-import { highlightWinner } from "./functions";
 
+// Components
 import Icon from "./components/Icon";
+
+// Functions
+import { memoHighlightWinner } from "./functions";
 
 
 const slotsArr = new Array(9).fill("empty");
@@ -33,15 +40,15 @@ const App = () => {
   const [winnerSlots, setWinnerSlots] = useState([]);
   const turn = useRef(0);
 
-  function reloadGame() {
+  const reloadGame = useCallback(() => {
     setMarkSwitch("cross");
     setWinMessage("");
     setWinnerSlots([]);
     slotsArr.fill("empty");
     turn.current = 0;
-  }
+  }, []); 
 
-  function checkTheWinner(turn) {
+  const checkTheWinner = useCallback(turn => {
 
     if (turn >= 9) {
       setWinMessage("It's a Tie.");
@@ -59,9 +66,9 @@ const App = () => {
         setWinnerSlots([a, b, c]);
       }
     }
-  }
+  }, []);
 
-  function markSlot(index) {
+  const markSlot = useCallback(index => {
 
     if (winMessage) {
       return;
@@ -80,7 +87,7 @@ const App = () => {
     if (turn.current >= MIN_TURN_FOR_WINNER) {
       checkTheWinner(turn.current);
     }
-  }
+  }, [mark, checkTheWinner, winMessage]);
 
   return (
     <Container className="p-5">
@@ -101,13 +108,13 @@ const App = () => {
 
           <div className="mb-5 mt-5">
             <Button color="primary" block onClick={reloadGame}>
-              Reload the game
+              Reload the Game
             </Button>
           </div>
 
           <div className="grid">
             {slotsArr.map((slot, index) => (
-              <Card key={getKey()} color={highlightWinner(index, winnerSlots)} onClick={() => markSlot(index)}>
+              <Card key={getKey()} color={memoHighlightWinner(index, winnerSlots)} onClick={() => markSlot(index)}>
                 <CardBody className="box">
                   <Icon name={slot} />
                 </CardBody>
