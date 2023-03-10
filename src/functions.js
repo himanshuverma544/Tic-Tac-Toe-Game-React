@@ -1,3 +1,11 @@
+export const memoHighlightWinner = memoFunc(highlightWinner);
+
+function highlightWinner(index, winnerSlots)
+{
+  const [a, b, c] = winnerSlots;
+  return (index === a || index === b || index === c) ? "success" : "warning";
+}
+
 function memoFunc(func)
 {
   var cache = {};
@@ -16,11 +24,3 @@ function memoFunc(func)
     }
   };
 }
-
-function highlightWinner(index, winnerSlots)
-{
-  const [a, b, c] = winnerSlots;
-  return (index === a || index === b || index === c) ? "success" : "warning";
-}
-
-export const memoHighlightWinner = memoFunc(highlightWinner);
