@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { FaTimes, FaPen, FaRegCircle } from "react-icons/fa";
 
 const Icon = ({name}) => {
@@ -11,4 +12,4 @@ const Icon = ({name}) => {
   }
 };
 
-export default Icon;
+export default memo(Icon);
