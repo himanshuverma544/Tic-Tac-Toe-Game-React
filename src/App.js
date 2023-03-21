@@ -5,7 +5,7 @@ import { useState, useRef, useCallback} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Bootstrap and CSS
+// Reactstrap, Bootstrap and CSS
 import { Card, CardBody, Container, Button, Col, Row } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
