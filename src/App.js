@@ -1,5 +1,5 @@
 // Hooks
-import { useState, useRef, useCallback} from "react";
+import { useState, useRef, useCallback, } from "react";
 
 // Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -39,6 +39,7 @@ const App = () => {
   const [winMessage, setWinMessage] = useState("");
   const [winnerSlots, setWinnerSlots] = useState([]);
   const turn = useRef(0);
+  const cardNode = useRef(null);
 
   const reloadGame = useCallback(() => {
     setMarkSwitch("cross");
@@ -114,7 +115,13 @@ const App = () => {
 
           <div className="grid">
             {slotsArr.map((slot, index) => (
-              <Card key={getKey()} color={memoHighlightWinner(index, winnerSlots)} onClick={() => markSlot(index)}>
+              <Card 
+                key={getKey()}
+                style={{"cursor" : !winMessage ? "pointer" : ""}}
+                innerRef={cardNode}
+                color={memoHighlightWinner(index, winnerSlots)} 
+                onClick={() => markSlot(index)}
+              >
                 <CardBody className="box">
                   <Icon name={slot} />
                 </CardBody>
