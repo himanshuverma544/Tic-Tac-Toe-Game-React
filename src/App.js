@@ -39,7 +39,6 @@ const App = () => {
   const [winMessage, setWinMessage] = useState("");
   const [winnerSlots, setWinnerSlots] = useState([]);
   const turn = useRef(0);
-  const cardNode = useRef(null);
 
   const reloadGame = useCallback(() => {
     setMarkSwitch("cross");
@@ -118,7 +117,6 @@ const App = () => {
               <Card 
                 key={getKey()}
                 style={{"cursor" : !winMessage ? "pointer" : ""}}
-                innerRef={cardNode}
                 color={memoHighlightWinner(index, winnerSlots)} 
                 onClick={() => markSlot(index)}
               >
